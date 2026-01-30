@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paint App</title>
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffd6e8, #dff5ff);
+      min-height: 100vh;
+    }
+
+    .color-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    .canvas-wrapper {
+      max-width: 100%;
+      overflow: auto;
+    }
+
+    canvas {
+      background:white;
+      border-radius: 12px;
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body class="p-3">
+
+<div class="container-fluid text-center">
+
+  <h1 class="fw-bold mb-4">
+    <i class="bi bi-palette-fill"></i> Paint App
+  </h1>
+
+  <!-- Toolbar -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+
+      <div class="row g-4 align-items-center">
+
+        <!-- Brush size -->
+        <div class="col-lg-3">
+          <label class="form-label fw-semibold">
+            <i class="bi bi-brush"></i> Brush Size
+          </label>
+
+          <input
+            id="brush size"
+            value="1"
+            type="number"
+            class="form-control mb-2"
+            min="1"
+            max="50"
+          />
+
+          <!-- Presets -->
+          <div class="btn-group w-100">
+            <button class="btn btn-outline-secondary" onclick="input.value=2;changebrushsize()">S</button>
+            <button class="btn btn-outline-secondary" onclick="input.value=6;changebrushsize()">M</button>
+            <button class="btn btn-outline-secondary" onclick="input.value=12;changebrushsize()">L</button>
+            <button class="btn btn-outline-secondary" onclick="input.value=25;changebrushsize()">XL</button>
+          </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="col-lg-9">
+          <label class="form-label fw-semibold">
+            <i class="bi bi-droplet-fill"></i> Colors
+          </label>
+
+          <div class="d-flex flex-wrap gap-2 justify-content-center">
+            <button class="color-btn bg-danger" onclick="changecolor('red')"></button>
+            <button class="color-btn bg-warning" onclick="changecolor('orange')"></button>
+            <button class="color-btn bg-warning-subtle" onclick="changecolor('yellow')"></button>
+            <button class="color-btn bg-success" onclick="changecolor('green')"></button>
+            <button class="color-btn" style="background:#ADD8E6" onclick="changecolor('#ADD8E6')"></button>
+            <button class="color-btn bg-primary" onclick="changecolor('darkblue')"></button>
+            <button class="color-btn" style="background:purple" onclick="changecolor('purple')"></button>
+            <button class="color-btn" style="background:indigo" onclick="changecolor('indigo')"></button>
+            <button class="color-btn" style="background:violet" onclick="changecolor('violet')"></button>
+            <button class="color-btn" style="background:pink" onclick="changecolor('pink')"></button>
+            <button class="color-btn bg-dark" onclick="changecolor('black')"></button>
+            <button class="color-btn bg-light border" onclick="changecolor('white')"></button>
+            <button class="color-btn" style="background:brown" onclick="changecolor('brown')"></button>
+            <button class="color-btn" style="background:#FFE5B4" onclick="changecolor('#FFE5B4')"></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Canvas -->
+  <div class="canvas-wrapper d-flex justify-content-center">
+    <canvas
+      id="OP"
+      height="800"
+      width="1400"
+      class="shadow-lg"
+      style="border:10px solid rgb(255, 134, 188)"
+    ></canvas>
+  </div>
+
+</div>
+
+<!-- JS (UNCHANGED) -->
+<script>
+  let input = document.getElementById("brush size");
+
+  let canvas = document.getElementById("OP");
+  let brush = canvas.getContext("2d");
+  let Aredraw = false;
+  brush.fillStyle = "white";
+  brush.fillRect(0, 0, 1400, 800);
+
+  function changecolor(color) {
+    brush.strokeStyle = color;
+  }
+
+  function Startdrawing(Mouse) {
+    brush.moveTo(Mouse.offsetX, Mouse.offsetY);
+    brush.beginPath();
+    Aredraw = true;
+  }
+
+  function drawline(Mouse) {
+    if (Aredraw == true) {
+      brush.lineTo(Mouse.offsetX, Mouse.offsetY);
+      brush.stroke();
+    }
+  }
+
+  function stopdrawing() {
+    Aredraw = false;
+  }
+
+  function changebrushsize() {
+    brush.lineWidth = input.value;
+  }
+
+  canvas.addEventListener("mousedown", Startdrawing);
+  input.addEventListener("input", changebrushsize);
+  canvas.addEventListener("mousemove", drawline);
+  canvas.addEventListener("mouseup", stopdrawing);
+  canvas.addEventListener("mouseleave", stopdrawing);
+  canvas.addEventListener("touchstart",Startdrawing)
+  canvas.addEventListener("touchmove",drawline)
+  canvas.addEventListener("touchend",stopdrawing)
+
+</script>
+
+</body>
+</html>

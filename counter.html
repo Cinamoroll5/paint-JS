@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Purple Counter</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        }
+
+        .card {
+            background-color: #1e1e2f;
+            color: #ffffff;
+            border-radius: 15px;
+        }
+
+        .counter-value {
+            color: #c77dff;
+            font-weight: bold;
+        }
+
+        .btn-purple {
+            background-color: #7b2cbf;
+            border: none;
+        }
+
+        .btn-purple:hover {
+            background-color: #9d4edd;
+        }
+
+        .btn-outline-purple {
+            border: 2px solid #c77dff;
+            color: #c77dff;
+        }
+
+        .btn-outline-purple:hover {
+            background-color: #c77dff;
+            color: #1e1e2f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="card shadow-lg p-4 text-center" style="width: 320px;">
+            <h2 class="mb-3">COUNTER</h2>
+
+            <h1 id="OG" class="display-4 counter-value mb-4">0</h1>
+
+            <div class="d-flex justify-content-between">
+                <button id="minus" class="btn btn-outline-purple btn-lg px-4">−</button>
+                <button id="add" class="btn btn-purple btn-lg px-4">+</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let count = 0
+    let add = document.getElementById("add")
+    let minus = document.getElementById("minus")
+    let h1 = document.getElementById("OG")
+
+    function addbuttonclick() {
+        count += 1
+        h1.innerText = count
+    }
+
+    function minusbuttonclick() {
+        count -= 1
+        h1.innerText = count
+    }
+
+    add.addEventListener('click', addbuttonclick)
+    minus.addEventListener('click', minusbuttonclick)
+</script>
+
+</body>
+</html>
